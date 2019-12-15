@@ -7,10 +7,24 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "lint": "./node_modules/.bin/eslint"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.8.1",
+    "morgan": "^1.9.1",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
   }
 }

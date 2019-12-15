@@ -3,6 +3,9 @@
 
 # testing
 
+# dev
+.eslintrc.json
+
 # misc
 .DS_Store
 .env
@@ -13,5 +16,6 @@
 .git
 yarn.lock
 
+package-lock.json
 yarn-debug.log*
 yarn-error.log*
