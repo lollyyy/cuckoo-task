@@ -1,0 +1,16 @@
+{
+  "name": "tech-lead-task",
+  "version": "0.0.1",
+  "description": "Interactive web app for recruitment process",
+  "main": "index.js",
+  "author": "Jaakko Ihanamäki",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
