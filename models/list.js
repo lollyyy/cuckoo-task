@@ -1,18 +1,17 @@
 const mongoose = require('mongoose')
 
-const taskSchema = mongoose.Schema({
-  taskname: String,
-  taskdescription: String,
-  completed: Boolean,
-  list: [
+const listSchema = mongoose.Schema({
+  listname: String,
+  color: String,
+  tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'List'
+      ref: 'Task'
     }
   ]
 })
 
-taskSchema.set('toJSON', {
+listSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -20,6 +19,6 @@ taskSchema.set('toJSON', {
   }
 })
 
-const Task = mongoose.model('Task', taskSchema)
+const List = mongoose.model('List', listSchema)
 
-module.exports = Task
+module.exports = List

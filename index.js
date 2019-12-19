@@ -4,8 +4,10 @@ const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const tasksRouter = require('./controllers/tasks')
+const listRouter = require('./controllers/lists')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const errorHandler = require('./utils/errorHandler')
 
 // Add Morgan logging
 morgan.token('body', (req, res) => JSON.stringify(req.body))
@@ -29,8 +31,15 @@ app.use(cors())
 // enqueue bodyParser middleware
 app.use(bodyParser.json())
 
-// enqueue mongoose router for tasks
+// enqueue express router for tasks
 app.use('/api/tasks', tasksRouter)
+
+// enqueue express router for lists
+app.use('/api/lists', listRouter)
+
+// enqueue errorHandler middleware
+app.use(errorHandler.errorHandler)
+app.use(errorHandler.unknownEndpoint)
 
 app.get('/', (req, res, next) => {
   res.json('Hello world')
