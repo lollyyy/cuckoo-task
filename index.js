@@ -15,6 +15,8 @@ app.use(bodyParser.json())
 // enqueue cors
 app.use(cors())
 
+app.use(express.static('build'))
+
 // Add Morgan logging
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -36,8 +38,6 @@ app.use('/api/tasks', tasksRouter)
 
 // enqueue express router for lists
 app.use('/api/lists', listRouter)
-
-app.use(express.static('build'))
 
 app.listen(config.PORT, () => {
   console.log(`Server running on ${config.PORT}`)
