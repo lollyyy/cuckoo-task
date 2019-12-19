@@ -12,12 +12,13 @@ tasksRouter.get('/', async (req, res) => {
 // Add new task
 tasksRouter.post('/', async (req, res, next) => {
   const body = req.body
+  console.log(body.list)
 
-  const list = await List.findById(body.listId)
+  const list = await List.findById(body.list)
 
   const task = new Task({
     taskname: body.taskname,
-    taskdescription: body.description,
+    taskdescription: body.taskdescription,
     completed: false,
     list: list._id
   })
@@ -38,7 +39,7 @@ tasksRouter.patch('/:id', async (req, res, next) => {
 
   const task = {
     taskname: body.taskname,
-    description: body.description
+    taskdescription: body.description
   }
 
   try {

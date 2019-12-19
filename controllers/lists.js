@@ -4,7 +4,8 @@ const List = require('../models/list')
 
 // Get all lists
 listRouter.get('/', async (req, res) => {
-  const lists = await List.find({})
+  const lists = await List
+    .find({}).populate('tasks')
   res.json(lists.map(list => list.toJSON()))
 })
 

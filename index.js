@@ -9,6 +9,12 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const errorHandler = require('./utils/errorHandler')
 
+// enqueue bodyParser middleware
+app.use(bodyParser.json())
+
+// enqueue cors
+app.use(cors())
+
 // Add Morgan logging
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -25,26 +31,20 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
     console.log('error connecting to MongoDB: ', error.message)
   })
 
-// enqueue cors
-app.use(cors())
-
-// enqueue bodyParser middleware
-app.use(bodyParser.json())
-
 // enqueue express router for tasks
 app.use('/api/tasks', tasksRouter)
 
 // enqueue express router for lists
 app.use('/api/lists', listRouter)
 
-// enqueue errorHandler middleware
-app.use(errorHandler.errorHandler)
-app.use(errorHandler.unknownEndpoint)
-
-app.get('/', (req, res, next) => {
+app.get('/', (req, res) => {
   res.json('Hello world')
 })
 
 app.listen(config.PORT, () => {
   console.log(`Server running on ${config.PORT}`)
 })
+
+// enqueue errorHandler middleware
+app.use(errorHandler.errorHandler)
+app.use(errorHandler.unknownEndpoint)
