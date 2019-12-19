@@ -37,9 +37,7 @@ app.use('/api/tasks', tasksRouter)
 // enqueue express router for lists
 app.use('/api/lists', listRouter)
 
-app.get('/', (req, res) => {
-  res.json('Hello world')
-})
+app.use(express.static('build'))
 
 app.listen(config.PORT, () => {
   console.log(`Server running on ${config.PORT}`)
