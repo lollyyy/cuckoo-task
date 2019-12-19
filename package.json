@@ -1,6 +1,6 @@
 {
   "name": "tech-lead-task",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Interactive web app for recruitment process",
   "main": "index.js",
   "author": "Jaakko Ihanamäki",
