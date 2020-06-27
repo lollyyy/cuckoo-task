@@ -9,11 +9,11 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const errorHandler = require('./utils/errorHandler')
 
-// enqueue bodyParser middleware
-app.use(bodyParser.json())
-
 // enqueue cors
 app.use(cors())
+
+// enqueue bodyParser middleware
+app.use(bodyParser.json())
 
 app.use(express.static('build'))
 
