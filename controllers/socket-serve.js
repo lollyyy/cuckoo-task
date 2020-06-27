@@ -24,12 +24,14 @@ io.on('connection', (client) => {
   client.on('subscribeToTimer', (interval) => {
     console.log('client is subscribing with interval ', interval)
   setInterval(() => {
-    client.emit('timer', new Date())
+    io.emit('timer', new Date())
   }, interval)
   })
   client.on('getLists', (interval) => {
+	
 	setInterval(() => {
-	client.emit('lists', listsArray)
+	console.log('client subscribed to lists with interval', interval)
+	io.emit('lists', listsArray)
 	client.disconnect()
 	}, interval)
   })
