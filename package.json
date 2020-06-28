@@ -9,7 +9,7 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "lint": "./node_modules/.bin/eslint",
-    "build:ui": "rm -rf build && cd ../tech-lead-task-frontend && yarn run build --prod && cp -r build ../tech-lead-task/",
+    "build:ui": "rm -rf build && cd ../cuckoo-task-frontend && yarn run build --prod && cp -r build ../cuckoo-task/",
     "deploy": "git push heroku master",
     "deploy:full": "yarn run build:ui && git add . && git commit -m uibuild && git push heroku master"
   },

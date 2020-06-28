@@ -8,6 +8,15 @@ const listRouter = require('./controllers/lists')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const errorHandler = require('./utils/errorHandler')
+const axios = require('axios')
+
+//Create new HTTP server instance for Socket.io
+const server = require('http').createServer(app)
+
+//Init Socket.io & allow all origins
+const io = require('socket.io')(server, { origins: '*:*' })
+
+server.listen(config.PORT)
 
 // enqueue cors
 app.use(cors())
@@ -39,10 +48,34 @@ app.use('/api/tasks', tasksRouter)
 // enqueue express router for lists
 app.use('/api/lists', listRouter)
 
-app.listen(config.PORT, () => {
-  console.log(`Server running on ${config.PORT}`)
-})
-
 // enqueue errorHandler middleware
 app.use(errorHandler.errorHandler)
 app.use(errorHandler.unknownEndpoint)
+
+let listsArray = []
+
+setInterval(() => {
+	axios.get(`/api/lists`, {port: config.PORT})
+	.then(res => {
+	  listsArray = res.data
+	})
+	.catch(err => console.error(err))
+  }, 500)
+
+//Function for Socket.io traffic
+io.on('connection', (client) => {
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing with interval ', interval)
+  setInterval(() => {
+    io.emit('timer', new Date())
+  }, interval)
+  })
+  client.on('getLists', (interval) => {
+	
+	setInterval(() => {
+	console.log('client subscribed to lists with interval', interval)
+	io.emit('lists', listsArray)
+	client.disconnect()
+	}, interval)
+  })
+})
